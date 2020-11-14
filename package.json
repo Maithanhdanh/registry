@@ -1,0 +1,29 @@
+{
+  "name": "customer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start_dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "NODE_ENV=test & clear & jest --verbose --coverage --runInBand --testEnvironment=node --detectOpenHandles --runInBand --forceExit"
+  },
+  "author": "Mai Thanh Danh",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cookies": "^0.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "jest": "^26.6.3",
+    "mongoose": "^5.10.7",
+    "morgan": "^1.10.0",
+    "supertest": "^6.0.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

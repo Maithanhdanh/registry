@@ -1,0 +1,32 @@
+orbs:
+  node: circleci/node@4.1.0
+  heroku: circleci/heroku@0.0.10
+
+version: 2.1
+
+jobs:
+  test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: npm test
+      
+workflows:
+  heroku_deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - master
+                - dev
+      - heroku/deploy-via-git:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
