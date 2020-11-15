@@ -91,6 +91,28 @@ serviceSchema.statics = {
 			return error.message
 		}
 	},
+
+	/**
+	 * Find IP given by service
+	 *
+	 * @param {String} service service is served
+	 * @returns {Promise<Array<Service>, Error>}
+	 */
+	async findIpGivenService(service) {
+		try {
+			if(!service) throw new Error("missing service")
+
+			const services = await this.find({service}).exec()
+			if(!services || services.length === 0) throw new Error("invalid service")
+
+			const selectedService = services[Math.floor(Math.random() * services.length)];
+
+			const transformedServices = selectedService.transform()
+			return transformedServices
+		} catch (error) {
+			return error.message
+		}
+	},
 }
 
 const Service = mongoose.model("profile", serviceSchema, "service")

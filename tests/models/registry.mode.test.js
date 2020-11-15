@@ -70,7 +70,7 @@ describe("service statics", () => {
 
 	describe("find all document", () => {
 		it("success", async () => {
-			const res = await Service.findAll(ip, port)
+			const res = await Service.findAll()
 
 			expect(res.length).toBe(1)
 			expect(Object.keys(res[0]).length).toBe(4)
@@ -79,11 +79,31 @@ describe("service statics", () => {
 			expect(res[0].port).toBe(port)
 			expect(res[0].service).toBe(service)
 		})
-		it("success => return empty service", async () => {
-			await Service.checkToRemoveService(ip, port)
-			const res = await Service.findAll(ip, port)
+		it("success => empty service", async () => {
+			await Service.deleteMany({})
+			const res = await Service.findAll()
 
 			expect(res.length).toBe(0)
+		})
+	})
+
+	describe("Find IP given service", () => {
+		beforeAll(async () => {
+			await Service.checkToCreateService(ip, port, service)
+		})
+		it("success", async () => {
+			const res = await Service.findIpGivenService(service)
+
+			expect(Object.keys(res).length).toBe(4)
+			expect(res.type).toBe('http')
+			expect(res.ip).toBe(ip)
+			expect(res.port).toBe(port)
+			expect(res.service).toBe(service)
+		})
+		it("failed => empty service", async () => {
+			const res = await Service.findIpGivenService()
+
+			expect(res).toBe('missing service')
 		})
 	})
 })
