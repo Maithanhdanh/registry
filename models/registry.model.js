@@ -39,7 +39,9 @@ serviceSchema.statics = {
 	/**
 	 * Check to create new service
 	 *
-	 * @param {String} uid service's uid.
+	 * @param {String} ip service is running on.
+	 * @param {Number} port service is running on.
+	 * @param {String} service service name.
 	 * @returns {Promise<service, Error>}
 	 */
 	async checkToCreateService(ip, port, service) {
@@ -58,10 +60,11 @@ serviceSchema.statics = {
 		}
 	},
 	/**
-	 * Check to create new service
+	 * Check to remove service
 	 *
-	 * @param {String} uid service's uid.
-	 * @returns {Promise<service, Error>}
+	 * @param {String} ip service is running on.
+	 * @param {Number} port service is running on.
+	 * @returns {Promise<Service, Error>}
 	 */
 	async checkToRemoveService(ip, port) {
 		try {
@@ -74,9 +77,13 @@ serviceSchema.statics = {
 			return error.message
 		}
 	},
+	/**
+	 * Find all subscribed services
+	 *
+	 * @returns {Promise<Array<Service>, Error>}
+	 */
 	async findAll() {
 		try {
-			//<!-- Get service based on email -->
 			const services = await this.find({}).exec()
 			const transformedServices = services.map((service) => service.transform())
 			return transformedServices

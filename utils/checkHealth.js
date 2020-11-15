@@ -2,6 +2,7 @@ const axiosHealth = require("../config/axiosHealth")
 const logger = require("../config/logger")
 const { Service } = require("../models/registry.model.js")
 
+// <!-- Check health of all subscribed services -->
 exports.checkHealth = async () => {
 	const allServices = await Service.findAll()
 
