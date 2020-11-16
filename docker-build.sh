@@ -1,1 +1,1 @@
-docker build -t registry:latest -f Dockerfile .
+docker build -t registry:latest  -t nginx:registry -f Dockerfile .
